@@ -1,17 +1,14 @@
 import React, { Component } from "react";
 import ReactPaginate from "react-paginate";
-import Loader from "./Loader/Loader";
 import Table from "./Table/Table";
-import ModeSelector from "./ModeSelector/ModeSelector";
 import TableSearch from "./TableSearch/TableSearch";
 import _ from "lodash";
 import "./styles.css";
+import data from './data.json';
 
 class App extends Component {
   state = {
-    isModeSelected: false,
-    isLoading: false,
-    data: [],
+    data: data,
     search: "",
     sort: "asc",
     sortField: "id",
@@ -19,15 +16,6 @@ class App extends Component {
     currentPage: 0,
   };
 
-  async fetchData(url) {
-    const response = await fetch(url);
-    const data = await response.json();
-
-    this.setState({
-      isLoading: false,
-      data: _.orderBy(data, this.state.sortField, this.state.sort),
-    });
-  }
   onSort = (sortField) => {
     const cloneData = this.state.data.concat();
     const sort = this.state.sort === "asc" ? "desc" : "asc";
@@ -35,13 +23,6 @@ class App extends Component {
     this.setState({ data, sort, sortField });
   };
 
-  modeSelectHandler = (url) => {
-    this.setState({
-      isModeSelected: true,
-      isLoading: true,
-    });
-    this.fetchData(url);
-  };
 
   pageChangeHandler = ({ selected }) =>
     this.setState({ currentPage: selected });
@@ -71,23 +52,14 @@ class App extends Component {
   }
 
   render() {
-    const pageSize = 50;
-    if (!this.state.isModeSelected) {
-      return (
-        <div className="container">
-          <ModeSelector onSelect={this.modeSelectHandler} />
-        </div>
-      );
-    }
+    const pageSize = 20;
 
     const filteredData = this.getFilteredData();
     const pageCount = Math.ceil(filteredData.length / pageSize);
     const displayData = _.chunk(filteredData, pageSize)[this.state.currentPage];
     return (
       <div className="container">
-        {this.state.isLoading ? (
-          <Loader />
-        ) : (
+        {(
           <React.Fragment>
             <TableSearch onSearch={this.searchHandler} />
             <Table
