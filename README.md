@@ -2,7 +2,7 @@
 
 ## You can see the finished application [here](https://mdlufy.github.io/react-table/)
 
-Includes a sign with the following functionality:
+Includes a table with the following functionality:
 - 5 columns with numeric and text data
 - Sorting by clicking on the column name
 - Pagination (15 rows on page)
