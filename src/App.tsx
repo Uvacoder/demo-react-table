@@ -50,10 +50,12 @@ function App() {
     return result;
   };
 
-  const pageSize = 11;
+  const pageSize = 60;
 
   const filteredData = getFilteredData();
-  const displayData = _.chunk(filteredData, pageSize)[currentPage];
+  const displayData = _.chunk(filteredData, pageSize)[currentPage]
+
+  console.log(currentPage);
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * pageSize;
