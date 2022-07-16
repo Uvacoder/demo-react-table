@@ -5,6 +5,7 @@ import TableSearch from "./components/TableSearch";
 import _ from "lodash";
 import "./styles/styles.css";
 import Users from "./generated.json";
+import usePagination from "./hooks/usePagination";
 
 function App() {
   const [data, setData] = useState(Users);
@@ -12,19 +13,30 @@ function App() {
   const [sort, setSort] = useState("asc");
   const [sortField, setSortField] = useState("id");
   const [currentPage, setCurrentPage] = useState(0);
-
+  const {
+    firstContentIndex,
+    lastContentIndex,
+    nextPage,
+    prevPage,
+    page,
+    setPage,
+    totalPages,
+  } = usePagination({
+    contentPerPage: 3,
+    count: data.length,
+  });
+ 
   const onSort = (sortField: any) => {
-    const cloneData = Users.concat();
-    const sortPuck = sort === "asc" ? "desc" : "asc";
-    const data = _.orderBy(cloneData, sortField, sort);
-    setData(data);
-    setSort(sortPuck);
+    const cloneData = data.concat();
+    const sortType = sort === "asc" ? "desc" : "asc";
+    const rows = _.orderBy(cloneData, sortField, sort);
+
+    setData(rows);
+    setSort(sortType);
     setSortField(sortField);
   };
 
-  const pageChangeHandler = ({
-    selected
-  }: any) => setCurrentPage(selected);
+  const pageChangeHandler = ({ selected }: any) => setCurrentPage(selected);
 
   const searchHandler = (search: any) => {
     setSearch(search);
@@ -36,7 +48,7 @@ function App() {
       return data;
     }
 
-    var result = data.filter((item: any) => {
+    let result = data.filter((item: any) => {
       return (
         item["firstName"].toLowerCase().includes(search.toLowerCase()) ||
         item["lastName"].toLowerCase().includes(search.toLowerCase()) ||
@@ -52,6 +64,7 @@ function App() {
   };
 
   const pageSize = 15;
+
 
   const filteredData = getFilteredData();
   const pageCount = Math.ceil(filteredData.length / pageSize);
