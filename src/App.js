@@ -3,7 +3,7 @@ import ReactPaginate from "react-paginate";
 import Table from "./components/Table";
 import TableSearch from "./components/TableSearch";
 import _ from "lodash";
-import "./styles.css";
+import "./styles/styles.css";
 import Rows from "./generated.json";
 
 function App() {
