@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
-export default (props) => {
+function TableSearch(props) {
   const [value, setValue] = useState("");
+
   const valueChangeHandler = (event) => {
     setValue(event.target.value);
   };
@@ -21,4 +22,6 @@ export default (props) => {
       />
     </div>
   );
-};
+}
+
+export default TableSearch;

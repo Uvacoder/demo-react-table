@@ -4,17 +4,17 @@ import Table from "./components/Table";
 import TableSearch from "./components/TableSearch";
 import _ from "lodash";
 import "./styles/styles.css";
-import Rows from "./generated.json";
+import Users from "./generated.json";
 
 function App() {
-  const [data, setData] = useState(Rows);
+  const [data, setData] = useState(Users);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("asc");
   const [sortField, setSortField] = useState("id");
   const [currentPage, setCurrentPage] = useState(0);
 
   const onSort = (sortField) => {
-    const cloneData = Rows.concat();
+    const cloneData = Users.concat();
     const sortPuck = sort === "asc" ? "desc" : "asc";
     const data = _.orderBy(cloneData, sortField, sort);
     setData(data);
@@ -41,9 +41,11 @@ function App() {
         item["email"].toLowerCase().includes(search.toLowerCase())
       );
     });
+
     if (!result.length) {
       result = data;
     }
+    
     return result;
   };
 
@@ -52,6 +54,7 @@ function App() {
   const filteredData = getFilteredData();
   const pageCount = Math.ceil(filteredData.length / pageSize);
   const displayData = _.chunk(filteredData, pageSize)[currentPage];
+  console.log(displayData);
 
   return (
     <div className="container">
