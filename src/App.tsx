@@ -12,7 +12,7 @@ function App() {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("asc");
   const [sortField, setSortField] = useState("id");
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const onSort = (sortField: any) => {
     const cloneData = data.concat();
@@ -38,7 +38,8 @@ function App() {
       return (
         item["firstName"].toLowerCase().includes(search.toLowerCase()) ||
         item["lastName"].toLowerCase().includes(search.toLowerCase()) ||
-        item["email"].toLowerCase().includes(search.toLowerCase())
+        item["email"].toLowerCase().includes(search.toLowerCase()) ||
+        item["phone"].toLowerCase().includes(search.toLowerCase())
       );
     });
 
@@ -55,7 +56,7 @@ function App() {
   const displayData = _.chunk(filteredData, pageSize)[currentPage];
 
   const currentTableData = useMemo(() => {
-    const firstPageIndex = (currentPage) * pageSize;
+    const firstPageIndex = (currentPage - 1) * pageSize;
     const lastPageIndex = firstPageIndex + pageSize;
     return data.slice(firstPageIndex, lastPageIndex);
   }, [currentPage]);
