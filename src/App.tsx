@@ -1,16 +1,10 @@
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import React, { useState } from "react";
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import ReactPaginate from "react-paginate";
-// @ts-expect-error TS(6142): Module './components/Table' was resolved to '/home... Remove this comment to see the full error message
 import Table from "./components/Table";
-// @ts-expect-error TS(6142): Module './components/TableSearch' was resolved to ... Remove this comment to see the full error message
 import TableSearch from "./components/TableSearch";
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import _ from "lodash";
 import "./styles/styles.css";
-// @ts-expect-error TS(2732): Cannot find module './generated.json'. Consider us... Remove this comment to see the full error message
-import Users from "../generated.json";
+import Users from "./generated.json";
 
 function App() {
   const [data, setData] = useState(Users);
@@ -64,14 +58,10 @@ function App() {
   const displayData = _.chunk(filteredData, pageSize)[currentPage];
 
   return (
-    // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
     <div className="container">
       {
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <React.Fragment>
-          {/* @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
           <TableSearch onSearch={searchHandler} />
-          {/* @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
           <Table
             data={displayData}
             onSort={onSort}
@@ -82,7 +72,6 @@ function App() {
       }
 
       {data.length > pageSize ? (
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <ReactPaginate
           previousLabel={"<"}
           nextLabel={">"}
@@ -103,7 +92,6 @@ function App() {
           forcePage={currentPage}
         />
       ) : null}
-    {/* @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message */}
     </div>
   );
 }
