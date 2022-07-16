@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import ReactPaginate from "react-paginate";
+import React, { useState, useMemo } from "react";
+import _ from "lodash";
+
 import Table from "./components/Table";
 import TableSearch from "./components/TableSearch";
-import _ from "lodash";
-import "./styles/styles.css";
+import Pagination from "./components/Pagination";
 import Users from "./generated.json";
-import usePagination from "./hooks/usePagination";
+import "./styles/styles.scss";
 
 function App() {
   const [data, setData] = useState(Users);
@@ -13,19 +13,7 @@ function App() {
   const [sort, setSort] = useState("asc");
   const [sortField, setSortField] = useState("id");
   const [currentPage, setCurrentPage] = useState(0);
-  const {
-    firstContentIndex,
-    lastContentIndex,
-    nextPage,
-    prevPage,
-    page,
-    setPage,
-    totalPages,
-  } = usePagination({
-    contentPerPage: 3,
-    count: data.length,
-  });
- 
+
   const onSort = (sortField: any) => {
     const cloneData = data.concat();
     const sortType = sort === "asc" ? "desc" : "asc";
@@ -35,8 +23,6 @@ function App() {
     setSort(sortType);
     setSortField(sortField);
   };
-
-  const pageChangeHandler = ({ selected }: any) => setCurrentPage(selected);
 
   const searchHandler = (search: any) => {
     setSearch(search);
@@ -63,48 +49,33 @@ function App() {
     return result;
   };
 
-  const pageSize = 15;
-
+  const pageSize = 11;
 
   const filteredData = getFilteredData();
-  const pageCount = Math.ceil(filteredData.length / pageSize);
   const displayData = _.chunk(filteredData, pageSize)[currentPage];
+
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage) * pageSize;
+    const lastPageIndex = firstPageIndex + pageSize;
+    return data.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage]);
 
   return (
     <div className="container">
-      {
-        <React.Fragment>
-          <TableSearch onSearch={searchHandler} />
-          <Table
-            data={displayData}
-            onSort={onSort}
-            sort={sort}
-            sortField={sortField}
-          />
-        </React.Fragment>
-      }
-
-      {data.length > pageSize ? (
-        <ReactPaginate
-          previousLabel={"<"}
-          nextLabel={">"}
-          breakLabel={"..."}
-          breakClassName={"break-me"}
-          pageCount={pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={pageChangeHandler}
-          containerClassName={"pagination"}
-          activeClassName={"active"}
-          pageClassName="page-item"
-          pageLinkClassName="page-link"
-          previousClassName="page-item"
-          nextClassName="page-item"
-          previousLinkClassName="page-link"
-          nextLinkClassName="page-link"
-          forcePage={currentPage}
-        />
-      ) : null}
+      <TableSearch onSearch={searchHandler} />
+      <Table
+        data={displayData}
+        onSort={onSort}
+        sort={sort}
+        sortField={sortField}
+      />
+      <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={data.length}
+        pageSize={pageSize}
+        onPageChange={(page: any) => setCurrentPage(page)}
+      />
     </div>
   );
 }
