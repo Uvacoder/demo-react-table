@@ -50,7 +50,7 @@ function App() {
     return result;
   };
 
-  const pageSize = 60;
+  const pageSize = 15;
 
   const filteredData = getFilteredData();
   const displayData = _.chunk(filteredData, pageSize)[currentPage]
