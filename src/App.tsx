@@ -10,7 +10,7 @@ import TableSearch from "./components/TableSearch";
 import _ from "lodash";
 import "./styles/styles.css";
 // @ts-expect-error TS(2732): Cannot find module './generated.json'. Consider us... Remove this comment to see the full error message
-import Users from "./generated.json";
+import Users from "../generated.json";
 
 function App() {
   const [data, setData] = useState(Users);
