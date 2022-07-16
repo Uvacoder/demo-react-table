@@ -1,6 +1,6 @@
 # Test task for Caspel on React
 
-## You can see the finished application [here](https://mdlufy.github.io/react-table/)
+## Finished application [here](https://mdlufy.github.io/react-table/)
 
 Includes a table with the following functionality:
 - 5 columns with numeric and text data

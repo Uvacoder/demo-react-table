@@ -45,7 +45,7 @@ function App() {
     if (!result.length) {
       result = data;
     }
-    
+
     return result;
   };
 
@@ -54,7 +54,6 @@ function App() {
   const filteredData = getFilteredData();
   const pageCount = Math.ceil(filteredData.length / pageSize);
   const displayData = _.chunk(filteredData, pageSize)[currentPage];
-  console.log(displayData);
 
   return (
     <div className="container">
