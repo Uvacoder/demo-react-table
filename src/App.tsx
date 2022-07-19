@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from "react";
 import _ from "lodash";
 
-import Table from "./components/Table";
-import TableSearch from "./components/TableSearch";
-import Pagination from "./components/Pagination";
+import Table from "./components/Table/Table";
+import TableSearch from "./components/Search/TableSearch";
+import Pagination from "./components/Pagination/Pagination";
 import Users from "./generated.json";
 import "./styles/styles.scss";
 

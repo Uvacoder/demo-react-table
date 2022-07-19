@@ -3,7 +3,6 @@ import THead from "./THead";
 import TBody from "./TBody";
 
 function Table(props: any) {
-    console.log(props);
   return (
     <table className="table">
       <THead

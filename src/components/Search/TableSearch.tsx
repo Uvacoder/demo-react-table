@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import SearchButton from "./SearchButton";
+import SearchInput from "./SearchInput";
 
 function TableSearch(props: any) {
   const [value, setValue] = useState("");
@@ -10,11 +12,11 @@ function TableSearch(props: any) {
   return (
     <div className="input-group">
       <div className="input-group-prepend">
-        <button className="btn" onClick={() => props.onSearch(value)}>
+        <SearchButton className="btn" onClick={() => props.onSearch(value)}>
           Search
-        </button>
+        </SearchButton>
       </div>
-      <input
+      <SearchInput
         type="text"
         className="form-control"
         onChange={valueChangeHandler}
