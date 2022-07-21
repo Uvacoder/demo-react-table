@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 
-function SearchButton(props) {
-  const [value, setValue] = useState("");
+function SearchButton(props: any) {
+  const clickToSearch = () => {
+    props.onClick(props.value);
+  };
 
   return (
-    <button className="btn" onClick={() => props.onSearch(value)}>
-      {props.children}
+    <button className="btn" onClick={clickToSearch} value={props.value}>
+      Search
     </button>
   );
 }

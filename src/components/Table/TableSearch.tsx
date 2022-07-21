@@ -3,18 +3,18 @@ import SearchButton from "../Search/SearchButton";
 import SearchInput from "../Search/SearchInput";
 
 function TableSearch(props: any) {
+  const [value, setValue] = useState("");
+
+  const handleValueChange = (value) => {
+    setValue(value);
+  };
 
   return (
     <div className="input-group">
       <div className="input-group-prepend">
-        <SearchButton className="btn" onClick={() => props.onSearch(value)}>
-          Search
-        </SearchButton>
+        <SearchButton onClick={props.onSearch(value)} value={value} />
       </div>
-      <SearchInput
-        type="text"
-        className="form-control"
-      />
+      <SearchInput onChange={handleValueChange} value={value} />
     </div>
   );
 }
