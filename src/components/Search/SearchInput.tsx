@@ -1,12 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 
 function SearchInput(props) {
+  const [value, setValue] = useState("");
+
+  const valueChangeHandler = (event: any) => {
+    setValue(event.target.value);
+  };
   return (
       <input
         type="text"
         className="form-control"
-        onChange={props.valueChangeHandler}
-        value={props.value}
+        onChange={valueChangeHandler}
+        value={value}
       />
   );
 }

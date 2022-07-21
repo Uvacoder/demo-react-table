@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import SearchButton from "./SearchButton";
-import SearchInput from "./SearchInput";
+import SearchButton from "../Search/SearchButton";
+import SearchInput from "../Search/SearchInput";
 
 function TableSearch(props: any) {
-  const [value, setValue] = useState("");
-
-  const valueChangeHandler = (event: any) => {
-    setValue(event.target.value);
-  };
 
   return (
     <div className="input-group">
@@ -19,8 +14,6 @@ function TableSearch(props: any) {
       <SearchInput
         type="text"
         className="form-control"
-        onChange={valueChangeHandler}
-        value={value}
       />
     </div>
   );
