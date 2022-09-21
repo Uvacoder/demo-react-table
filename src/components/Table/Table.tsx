@@ -3,16 +3,16 @@ import THead from "./THead";
 import TBody from "./TBody";
 
 function Table(props: any) {
-  return (
-    <table className="table">
-      <THead
-        onSort={props.onSort}
-        sort={props.sort}
-        sortField={props.sortField}
-      />
-      <TBody data={props.data} />
-    </table>
-  );
+    return (
+        <table className="table">
+            <THead
+                onSort={props.onSort}
+                sort={props.sort}
+                sortField={props.sortField}
+            />
+            <TBody data={props.data} />
+        </table>
+    );
 }
 
 export default Table;
