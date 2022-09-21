@@ -1,11 +1,12 @@
-import React, { useState, useMemo } from "react";
 import _ from "lodash";
-
+import React, { useEffect, useState } from "react";
+import Pagination from "./components/Pagination/Pagination";
+import Pagination2 from "./components/Pagination2/Pagination2";
 import Table from "./components/Table/Table";
 import TableSearch from "./components/Table/TableSearch";
-import Pagination from "./components/Pagination/Pagination";
 import Users from "./generated.json";
 import "./styles/styles.scss";
+import { getPageCount } from "./utils/pages";
 
 function App() {
     const [data, setData] = useState(Users);
@@ -13,6 +14,14 @@ function App() {
     const [sort, setSort] = useState("asc");
     const [sortField, setSortField] = useState("id");
     const [currentPage, setCurrentPage] = useState(1);
+
+    const [totalPages, setTotalPages] = useState(0);
+    const limit = 15;
+
+    useEffect(() => {
+        const totalCount = data.length;
+        setTotalPages(getPageCount(totalCount, limit));
+    }, [])
 
     const onSort = (sortField: any) => {
         const cloneData = data.concat();
@@ -26,7 +35,7 @@ function App() {
 
     const searchHandler = (search: any) => {
         setSearch(search);
-        setCurrentPage(0);
+        setCurrentPage(1);
     };
 
     const getFilteredData = () => {
@@ -52,16 +61,13 @@ function App() {
         return result;
     };
 
-    const pageSize = 15;
+    function changePage(page) {
+        setCurrentPage(page);
+    }
+
 
     const filteredData = getFilteredData();
-    const displayData = _.chunk(filteredData, pageSize)[currentPage];
-
-    const currentTableData = useMemo(() => {
-        const firstPageIndex = (currentPage - 1) * pageSize;
-        const lastPageIndex = firstPageIndex + pageSize;
-        return data.slice(firstPageIndex, lastPageIndex);
-    }, [currentPage]);
+    const displayData = _.chunk(filteredData, 15)[currentPage - 1];
 
     return (
         <div className="container">
@@ -76,9 +82,14 @@ function App() {
                 className="pagination-bar"
                 currentPage={currentPage}
                 totalCount={data.length}
-                pageSize={pageSize}
-                onPageChange={(page: any) => setCurrentPage(page)}
+                pageSize={15}
+                onPageChange={changePage}
             />
+            {/* <Pagination2
+                page={currentPage}
+                changePage={changePage}
+                totalPages={totalPages}
+            /> */}
         </div>
     );
 }

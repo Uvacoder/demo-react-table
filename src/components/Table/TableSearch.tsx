@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import SearchInput from "../Search/SearchInput";
 
 function TableSearch({ search, setSearch }) {
