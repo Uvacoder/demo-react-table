@@ -1,7 +1,7 @@
 import React from "react";
 import classnames from "classnames";
-import { usePagination, DOTS } from "../hooks/usePagination";
-import "../styles/pagination.scss";
+import { usePagination, DOTS } from "../../hooks/usePagination";
+import "../../styles/pagination.scss";
 
 const Pagination = (props: any) => {
   const {
@@ -48,11 +48,16 @@ const Pagination = (props: any) => {
       </li>
       {paginationRange.map((pageNumber) => {
         if (pageNumber === DOTS) {
-          return <li className="pagination-item dots" key={pageNumber}>&#8230;</li>;
+          return (
+            <li className="pagination-item dots" key={pageNumber}>
+              &#8230;
+            </li>
+          );
         }
 
         return (
-          <li key={pageNumber}
+          <li
+            key={pageNumber}
             className={classnames("pagination-item", {
               selected: pageNumber === currentPage,
             })}
