@@ -2,7 +2,7 @@
   "name": "react-table",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://mdlufy.github.io/react-table",
+  "homepage": "https://demo-react-table-rltz.vercel.app",
   "dependencies": {
     "classnames": "^2.3.1",
     "gh-pages": "^4.0.0",
@@ -13,7 +13,6 @@
     "react-scripts": "^5.0.1"
   },
   "scripts": {
-    "predeploy": "npm run build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
